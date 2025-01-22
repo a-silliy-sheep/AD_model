@@ -36,8 +36,8 @@ def get_compositionDf(df):  # View composition ratios of categorical variables
 #region ---------data loading --------------------------
 
 
-df = pd.read_excel(r"D:\Code_Program\python\模型部署\atopic_dermatitis_250122\元数据\df_ml_python.xlsx")
-X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0], test_size=0.2, random_state=2025)
+#    df = pd.read_excel(r"D:\Code_Program\python\模型部署\atopic_dermatitis_250122\元数据\df_ml_python.xlsx")
+#    X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0], test_size=0.2, random_state=2025)
 
 
 
@@ -48,12 +48,12 @@ X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0
 #           clf = RandomForestClassifier(n_estimators=100, random_state=2024)
 #           clf.fit(X_train, y_train)
 clf =  joblib.load(r".\RF.pkl")
-y_pred = clf.predict(X_test)
-y_pred2 = (clf.predict_proba(X_test)[:, 1] > 0.3).astype(int)
+#    y_pred = clf.predict(X_test)
+#    y_pred2 = (clf.predict_proba(X_test)[:, 1] > 0.3).astype(int)
 #       
-print("\033[1;34mConfusion Matrix:\n\033[1;0m", pd.DataFrame(data=confusion_matrix(y_test, y_pred2),
-            index=pd.Series(['0', '1'], name='Gold'),
-            columns=pd.Series(['0', '1'], name='Diagnose')))  # 输出混淆矩阵
+#    print("\033[1;34mConfusion Matrix:\n\033[1;0m", pd.DataFrame(data=confusion_matrix(y_test, y_pred2),
+#                index=pd.Series(['0', '1'], name='Gold'),
+#                columns=pd.Series(['0', '1'], name='Diagnose')))  # 输出混淆矩阵
 #     print("\033[1;34mClassification Report:\n\033[1;0m", classification_report(y_test, y_pred2, target_names=['0', '1']))  # 输出混淆矩阵衍生的各指标
 #     print("Accuracy:\n", accuracy_score(y_test, y_pred))
 #     print(clf.score(X_test, y_test))
