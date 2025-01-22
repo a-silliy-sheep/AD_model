@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 from sklearn.tree import export_graphviz
-import matplotlib.pyplot as plt
 import random, joblib
 import streamlit as st
 
