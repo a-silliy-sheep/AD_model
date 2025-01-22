@@ -124,7 +124,7 @@ ML_col = ['Asthma_of_dad', 'AR_of_dad', 'AD_of_dad', 'AR_of_mom', 'AD_of_mom', '
     'Months_of_exclusive_breastfeeding', 'Times_of_antibiotic_therapy_during_cfy']
 
 X_testStreamDf = pd.DataFrame(data=np.array([X_testStream]),
-                                columns=pd.Series(ML_col, name='columns'))
+                                columns=pd.Series(ML_col, name='columns')).iloc[:, np.array(list(range(9)) + [11, 12] + [9, 10])]
 
 
 st.empty()
@@ -133,7 +133,7 @@ st.empty()
 
 if st.sidebar.button('Predict'):
     y_predSt = clf.predict_proba(X_testStreamDf)[:,1][0]
-    y_predSt2 = 0.15+((0.9-0.15)/(0.541-0.003))*(y_predSt-0.003) # 原区间[0.003, 0.541]，转换后区间[0.15, 9]
+    y_predSt2 = 0.15+((0.9-0.15)/(0.77-0.073))*(y_predSt-0.073) # 原区间[0.073, 0.77]，转换后区间[0.15, 9]
     st.markdown('''Based on the information you provided, the random forest model predicts the probability
         of your child developing atopic dermatitis between the ages of 2-8 as follows:''')
     st.markdown(f":red[{100*round(y_predSt2, 3)}%]")
