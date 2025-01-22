@@ -47,7 +47,7 @@ def get_compositionDf(df):  # View composition ratios of categorical variables
 # region----Model training and evaluation----------------------------------------
 #           clf = RandomForestClassifier(n_estimators=100, random_state=2024)
 #           clf.fit(X_train, y_train)
-clf =  joblib.load(r".\RF.pkl")
+clf =  joblib.load("RF.pkl")
 #    y_pred = clf.predict(X_test)
 #    y_pred2 = (clf.predict_proba(X_test)[:, 1] > 0.3).astype(int)
 #       
