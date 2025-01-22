@@ -7,8 +7,6 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 from sklearn.tree import export_graphviz
-import graphviz
-import matplotlib.pyplot as plt
 import random, joblib
 import streamlit as st
 
@@ -38,8 +36,8 @@ def get_compositionDf(df):  # View composition ratios of categorical variables
 #region ---------data loading --------------------------
 
 
-df = pd.read_excel(r"D:\Code_Program\python\模型部署\atopic_dermatitis_250122\元数据\df_ml_python.xlsx")
-X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0], test_size=0.2, random_state=2025)
+#    df = pd.read_excel(r"D:\Code_Program\python\模型部署\atopic_dermatitis_250122\元数据\df_ml_python.xlsx")
+#    X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0], test_size=0.2, random_state=2025)
 
 
 
@@ -49,13 +47,13 @@ X_train, X_test, y_train, y_test = train_test_split(df.iloc[:, 2:], df.iloc[:, 0
 # region----Model training and evaluation----------------------------------------
 #           clf = RandomForestClassifier(n_estimators=100, random_state=2024)
 #           clf.fit(X_train, y_train)
-clf =  joblib.load(r".\RF.pkl")
-y_pred = clf.predict(X_test)
-y_pred2 = (clf.predict_proba(X_test)[:, 1] > 0.3).astype(int)
+clf =  joblib.load("RF.pkl")
+#    y_pred = clf.predict(X_test)
+#    y_pred2 = (clf.predict_proba(X_test)[:, 1] > 0.3).astype(int)
 #       
-print("\033[1;34mConfusion Matrix:\n\033[1;0m", pd.DataFrame(data=confusion_matrix(y_test, y_pred2),
-            index=pd.Series(['0', '1'], name='Gold'),
-            columns=pd.Series(['0', '1'], name='Diagnose')))  # 输出混淆矩阵
+#    print("\033[1;34mConfusion Matrix:\n\033[1;0m", pd.DataFrame(data=confusion_matrix(y_test, y_pred2),
+#                index=pd.Series(['0', '1'], name='Gold'),
+#                columns=pd.Series(['0', '1'], name='Diagnose')))  # 输出混淆矩阵
 #     print("\033[1;34mClassification Report:\n\033[1;0m", classification_report(y_test, y_pred2, target_names=['0', '1']))  # 输出混淆矩阵衍生的各指标
 #     print("Accuracy:\n", accuracy_score(y_test, y_pred))
 #     print(clf.score(X_test, y_test))
@@ -121,8 +119,12 @@ X_testStream = X_testStream + [(1 if ('no' in  last_q1) else 2 if ('1~3 months' 
                 ] + [(1 if ('no' in  last_q2) else 2 if ('1~2 times' in last_q2) else 3)]
 
 
+ML_col = ['Asthma_of_dad', 'AR_of_dad', 'AD_of_dad', 'AR_of_mom', 'AD_of_mom', 'Renovation_of_the_dwelling_before_mp', 'Renovation_of_the_dwelling_during_mp',
+    'Mold_in_the_dwelling_during_cfy', 'Father_smoking_in_the_dwelling_during_cfy', 'OlderSiblings', 'LowBirthWeight',
+    'Months_of_exclusive_breastfeeding', 'Times_of_antibiotic_therapy_during_cfy']
+
 X_testStreamDf = pd.DataFrame(data=np.array([X_testStream]),
-                                columns=pd.Series(X_train.columns, name='columns'))
+                                columns=pd.Series(ML_col, name='columns')).iloc[:, np.array(list(range(9)) + [11, 12] + [9, 10])]
 
 
 st.empty()
@@ -131,7 +133,7 @@ st.empty()
 
 if st.sidebar.button('Predict'):
     y_predSt = clf.predict_proba(X_testStreamDf)[:,1][0]
-    y_predSt2 = 0.15+((0.9-0.15)/(0.541-0.003))*(y_predSt-0.003) # 原区间[0.003, 0.541]，转换后区间[0.15, 9]
+    y_predSt2 = 0.15+((0.9-0.15)/(0.77-0.073))*(y_predSt-0.073) # 原区间[0.073, 0.77]，转换后区间[0.15, 9]
     st.markdown('''Based on the information you provided, the random forest model predicts the probability
         of your child developing atopic dermatitis between the ages of 2-8 as follows:''')
     st.markdown(f":red[{100*round(y_predSt2, 3)}%]")
