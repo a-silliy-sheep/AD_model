@@ -119,8 +119,12 @@ X_testStream = X_testStream + [(1 if ('no' in  last_q1) else 2 if ('1~3 months' 
                 ] + [(1 if ('no' in  last_q2) else 2 if ('1~2 times' in last_q2) else 3)]
 
 
+ML_col = ['Asthma_of_dad', 'AR_of_dad', 'AD_of_dad', 'AR_of_mom', 'AD_of_mom', 'Renovation_of_the_dwelling_before_mp', 'Renovation_of_the_dwelling_during_mp',
+    'Mold_in_the_dwelling_during_cfy', 'Father_smoking_in_the_dwelling_during_cfy', 'OlderSiblings', 'LowBirthWeight',
+    'Months_of_exclusive_breastfeeding', 'Times_of_antibiotic_therapy_during_cfy']
+
 X_testStreamDf = pd.DataFrame(data=np.array([X_testStream]),
-                                columns=pd.Series(X_train.columns, name='columns'))
+                                columns=pd.Series(ML_col, name='columns'))
 
 
 st.empty()
