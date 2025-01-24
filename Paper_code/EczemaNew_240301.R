@@ -67,7 +67,7 @@ sd(Data$Imp$realAgeToQuestionnaire_YMD_byM[Data$Imp_feast$event == '0']/12)
 
 
 colnames(Data$Imp)
-dim(Data$Imp)
+# dim(Data$Imp)
 
 Data$Imp$QuestionaireCode <- eczema_case_list$caseControl_list$df_together$QuestionaireCode 
 
