@@ -67,7 +67,7 @@ sd(Data$Imp$realAgeToQuestionnaire_YMD_byM[Data$Imp_feast$event == '0']/12)
 
 
 colnames(Data$Imp)
-dim(Data$Imp)
+# dim(Data$Imp)
 
 Data$Imp$QuestionaireCode <- eczema_case_list$caseControl_list$df_together$QuestionaireCode 
 
@@ -641,11 +641,11 @@ df_model <- df_model %>% dplyr::mutate(
 df_test <- df_model %>% dplyr::mutate(ParentalAllergyHistory = ifelse(ParentalAllergyHistory == 'yes', 1, 0)) %>% 
   dplyr::select(-c("ParentalAllergyHistory", "birth_weight", "YongerSiblings"))
 
-priority_v <- list(Times_of_antibiotic_therapy_during_cfy = 4,
-                   Months_of_exclusive_breastfeeding = 3,
-                   OlderSiblings = 3, 
-                   Renovation_of_the_dwelling_during_mp = 5,
-                   LowBirthWeight = 3)
+#priority_v <- list(Times_of_antibiotic_therapy_during_cfy = 1,
+#                   Months_of_exclusive_breastfeeding = 2,
+#                   OlderSiblings = 1, 
+#                   Renovation_of_the_dwelling_during_mp = 1,
+#                   LowBirthWeight = 2)
 #     library(Boruta); boruta_ml <- Boruta(as.formula('event ~ .'), data=df_test, doTrace=1)
 #     ml_vars <- c('event', 'match', getSelectedAttributes(boruta_ml, withTentative = F), names(priority_v))
 #     df_test <- df_test[, ml_vars[!duplicated(ml_vars)]]
